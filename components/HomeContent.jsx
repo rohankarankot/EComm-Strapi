@@ -1,13 +1,16 @@
-import React from "react";
+import Link from "next/Link";
+import Image from "next/image";
 
 const HomeContent = () => {
   return (
     <div>
       <section className="text-gray-600 body-font">
         <div className="container mx-auto flex px-5 py-5 items-center justify-center flex-col">
-          <img
+          <Image
             className="lg:w-2/6 md:w-3/6 w-5/6 mb-10 object-cover object-center rounded"
             alt="hero"
+            width={600}
+            height={300}
             src="https://source.unsplash.com/random/920x600"
           />
           <div className="text-center lg:w-2/3 w-full" />
