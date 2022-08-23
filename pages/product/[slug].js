@@ -1,10 +1,21 @@
 import { useRouter } from "next/router";
 import Image from "next/image";
+import { useState } from "react";
 
 const Slug = () => {
+  const [pin, setPin] = useState();
+  const [service, setService] = useState("");
   const router = useRouter();
   const { slug } = router.query;
-
+  const checkServicability = async () => {
+    let pincodes = await fetch("http://localhost:3000/api/pincode");
+    let res = await pincodes.json();
+    if (res.includes(parseInt(pin))) {
+      setService("Yep can deliver");
+    } else {
+      setService("Sorry, can't Deliver");
+    }
+  };
   return (
     <>
       <section className="text-gray-600 body-font overflow-hidden">
@@ -87,10 +98,6 @@ const Slug = () => {
               <p className="leading-relaxed">
                 Fam locavore kickstarter distillery. Mixtape chillwave tumeric
                 sriracha taximy chia microdosing tilde DIY. XOXO fam indxgo
-                juiceramps cornhole raw denim forage brooklyn. Everyday carry +1
-                seitan poutine tumeric. Gastropub blue bottle austin listicle
-                pour-over, neutra jean shorts keytar banjo tattooed umami
-                cardigan.
               </p>
               <div className="flex mt-6 items-center pb-5 border-b-2 border-gray-100 mb-5">
                 <div className="flex">
@@ -137,6 +144,28 @@ const Slug = () => {
                   </button>
                 </div>
               </div>
+              <hr className="my-3" />
+              <div className=" py-2 w-3/4 mr-2 flex gap-2">
+                <input
+                  type="text"
+                  value={pin}
+                  onChange={(e) => {
+                    setPin(e.target.value);
+                    setService("");
+                  }}
+                  placeholder="Enter pincode"
+                  id="footer-field"
+                  name="footer-field"
+                  className="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:ring-2 focus:bg-transparent focus:ring-indigo-200 focus:border-indigo-500 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"
+                />
+                <button
+                  className=" text-white bg-indigo-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded"
+                  onClick={checkServicability}
+                >
+                  check
+                </button>
+              </div>
+              {service}
             </div>
           </div>
         </div>
