@@ -7,7 +7,7 @@ const Tshirts = () => {
       <section className="text-gray-600 body-font flex  lg:mx-20  sm:mx-0">
         <div className="container px-5 py-5">
           <div className="flex flex-wrap mx-auto justify-center">
-            <div className="lg:w-1/4 md:w-1/2 m-4 p-4 w-full border-2 shadow-xl border-black-900 ">
+            <div className="lg:w-1/4 md:w-1/2 m-4 p-4 w-full hover:shadow-lg ">
               <Link href={"/"}>
                 <a className="block relative rounded overflow-hidden">
                   <Image
@@ -41,7 +41,7 @@ const Tshirts = () => {
                 </div>
               </div>
             </div>
-            <div className="lg:w-1/4 md:w-1/2 m-4 p-4 w-full border-2 shadow-xl border-black-900 ">
+            <div className="lg:w-1/4 md:w-1/2 m-4 p-4 w-full hover:shadow-lg ">
               <Link href={"/"}>
                 <a className="block relative rounded overflow-hidden">
                   <Image
@@ -75,7 +75,7 @@ const Tshirts = () => {
                 </div>
               </div>
             </div>
-            <div className="lg:w-1/4 md:w-1/2 m-4 p-4 w-full border-2 shadow-xl border-black-900 ">
+            <div className="lg:w-1/4 md:w-1/2 m-4 p-4 w-full   hover:shadow-lg ">
               <Link href={"/"}>
                 <a className="block relative rounded overflow-hidden">
                   <Image
@@ -109,7 +109,7 @@ const Tshirts = () => {
                 </div>
               </div>
             </div>
-            <div className="lg:w-1/4 md:w-1/2 m-4 p-4 w-full border-2 shadow-xl border-black-900 ">
+            <div className="lg:w-1/4 md:w-1/2 m-4 p-4 w-full hover:shadow-lg ">
               <Link href={"/"}>
                 <a className="block relative rounded overflow-hidden">
                   <Image
@@ -143,7 +143,7 @@ const Tshirts = () => {
                 </div>
               </div>
             </div>
-            <div className="lg:w-1/4 md:w-1/2 m-4 p-4 w-full border-2 shadow-xl border-black-900 ">
+            <div className="lg:w-1/4 md:w-1/2 m-4 p-4 w-full hover:shadow-lg ">
               <Link href={"/"}>
                 <a className="block relative rounded overflow-hidden">
                   <Image
@@ -177,7 +177,7 @@ const Tshirts = () => {
                 </div>
               </div>
             </div>
-            <div className="lg:w-1/4 md:w-1/2 m-4 p-4 w-full border-2 shadow-xl border-black-900 ">
+            <div className="lg:w-1/4 md:w-1/2 m-4 p-4 w-full hover:shadow-lg ">
               <Link href={"/"}>
                 <a className="block relative rounded overflow-hidden">
                   <Image
@@ -211,7 +211,7 @@ const Tshirts = () => {
                 </div>
               </div>
             </div>
-            <div className="lg:w-1/4 md:w-1/2 m-4 p-4 w-full border-2 shadow-xl border-black-900 ">
+            <div className="lg:w-1/4 md:w-1/2 m-4 p-4 w-full hover:shadow-lg ">
               <Link href={"/"}>
                 <a className="block relative rounded overflow-hidden">
                   <Image
@@ -245,7 +245,7 @@ const Tshirts = () => {
                 </div>
               </div>
             </div>
-            <div className="lg:w-1/4 md:w-1/2 m-4 p-4 w-full border-2 shadow-xl border-black-900 ">
+            <div className="lg:w-1/4 md:w-1/2 m-4 p-4 w-full hover:shadow-lg ">
               <Link href={"/"}>
                 <a className="block relative rounded overflow-hidden">
                   <Image

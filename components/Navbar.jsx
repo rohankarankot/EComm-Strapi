@@ -68,9 +68,12 @@ const Navbar = () => {
             </Link>
           </nav>
           <button
-            className="border-0 py-1 px-3rounded mt-4 md:mt-0 text-black text-2xl absolute top-4 right-4 "
+            className="border-0 py-1 px-3 rounded mt-4 md:mt-0 text-black text-2xl absolute top-4 right-4 "
             onClick={toggleCart}
           >
+            <div className="inline-flex absolute -top-2 -right-1 justify-center items-center w-6 h-6 text-xs font-bold text-white bg-blue-500 rounded-full ">
+              23
+            </div>
             <BsFillCartFill />
           </button>
         </div>
