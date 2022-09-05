@@ -1,12 +1,28 @@
 import { useRouter } from "next/router";
 import Image from "next/image";
-import { useState } from "react";
-
+import { useEffect, useState } from "react";
+import { GET_PRODUCT_DETAILS } from "../../gql/queries";
+import { useQuery } from "@apollo/client";
+import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a loader
+import { Carousel } from "react-responsive-carousel";
 const Slug = () => {
   const [pin, setPin] = useState();
   const [service, setService] = useState("");
+  const [productDetails, setProductDetails] = useState();
   const router = useRouter();
   const { slug } = router.query;
+  const { loading, error, data } = useQuery(GET_PRODUCT_DETAILS, {
+    variables: { productId: slug },
+  });
+  useEffect(() => {
+    if (slug) {
+      if (data) {
+        setProductDetails(data);
+      }
+      console.log("productDetails", productDetails?.product?.data?.attributes);
+    }
+  }, [data, productDetails, slug]);
+
   const checkServicability = async () => {
     let pincodes = await fetch("http://localhost:3000/api/pincode");
     let res = await pincodes.json();
@@ -20,20 +36,45 @@ const Slug = () => {
     <>
       <section className="text-gray-600 body-font overflow-hidden">
         <div className=" px-2 py-12 mx-auto">
-          <div className="lg:w-4/5 mx-auto flex flex-wrap">
-            <Image
+          <div className=" mx-auto flex flex-wrap">
+            {/* <Image
               width={400}
               height={500}
               alt="ecommerce"
               className="lg:w-1/2 w-full lg:h-auto h-40 object-cover object-center rounded"
               src="https://wpkoi.com/demos6/ashram/wp-content/uploads/sites/9/2019/01/tshirt-2.jpg"
-            />
+            /> */}
+            <Carousel
+              className=" w-2/4  justify-center align-center"
+              autoPlay
+              infiniteLoop
+              swipeable
+              showThumbs={false}
+              thumbWidth
+            >
+              {productDetails?.product?.data?.attributes?.images.data.map(
+                (product, index) => {
+                  return (
+                    <div key={index}>
+                      <Image
+                        width={900}
+                        className="w-full h-40 object-cover object-top rounded bg-slate-50"
+                        height={800}
+                        alt="ecommerce"
+                        src={`http://localhost:1337${product?.attributes?.url}`}
+                      />
+                    </div>
+                  );
+                }
+              )}
+            </Carousel>
+
             <div className="lg:w-1/2 w-full lg:pl-10 lg:py-6 mt-6 lg:mt-0">
               <h2 className="text-sm title-font text-gray-500 tracking-widest">
-                BRAND NAME
+                {productDetails?.product?.data?.attributes.brand}
               </h2>
               <h1 className="text-gray-900 text-3xl title-font font-medium mb-1">
-                The Catcher in the Rye
+                {productDetails?.product?.data?.attributes.name}
               </h1>
               <div className="flex mb-4">
                 <span className="flex items-center">
@@ -95,9 +136,8 @@ const Slug = () => {
                   <span className="text-gray-600 ml-3">4 Reviews</span>
                 </span>
               </div>
-              <p className="leading-relaxed">
-                Fam locavore kickstarter distillery. Mixtape chillwave tumeric
-                sriracha taximy chia microdosing tilde DIY. XOXO fam indxgo
+              <p className="leading-relaxed line-clamp-4">
+                {productDetails?.product?.data?.attributes.description}
               </p>
               <div className="flex mt-6 items-center pb-5 border-b-2 border-gray-100 mb-5">
                 <div className="flex">
@@ -133,16 +173,40 @@ const Slug = () => {
               </div>
               <div className="flex justify-around">
                 <span className="title-font font-medium text-2xl text-gray-900">
-                  ₹ 399
+                  ₹{" "}
+                  {productDetails?.product?.data?.attributes.price
+                    .toFixed(1)
+                    .replace(/\d(?=(\d{3})+\.)/g, "$&,")}
+                  /-
                 </span>
-                <div className="flex">
-                  <button className="flex ml-4 text-white bg-indigo-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded">
-                    Add to cart
-                  </button>
-                  <button className="flex ml-4 text-white bg-indigo-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded">
-                    Buy now
-                  </button>
-                </div>
+                {productDetails?.product?.data?.attributes.AvailableQty > 0 ? (
+                  <div className="flex flex-wrap">
+                    <button className="flex ml-4 text-white bg-indigo-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded">
+                      Add to cart
+                    </button>
+                    <button className="flex ml-4 text-white bg-indigo-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded">
+                      Buy now
+                    </button>
+                  </div>
+                ) : (
+                  <div>
+                    <div className="flex flex-wrap">
+                      <button
+                        disabled
+                        className="  flex ml-4 text-white bg-indigo-200 border-0 py-2 px-6 focus:outline-none rounded"
+                      >
+                        Add to cart
+                      </button>
+                      <button
+                        disabled
+                        className="  flex ml-4 text-white bg-indigo-200 border-0 py-2 px-6 focus:outline-none rounded"
+                      >
+                        Buy now
+                      </button>
+                    </div>
+                    <p className="text-center text-red-600">Out of Stock!!!</p>
+                  </div>
+                )}
               </div>
               <hr className="my-3" />
               <div className=" py-2 w-3/4 mr-2 flex gap-2">

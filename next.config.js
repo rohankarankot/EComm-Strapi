@@ -3,8 +3,13 @@ const nextConfig = {
   reactStrictMode: true,
   swcMinify: true,
   images: {
-    domains: ['wpkoi.com','source.unsplash.com'],
+    domains: [
+      "wpkoi.com",
+      "source.unsplash.com",
+      "thumbs.dreamstime.com",
+      "localhost",
+    ],
   },
-}
+};
 
-module.exports = nextConfig
+module.exports = nextConfig;
