@@ -18,6 +18,7 @@ const Login = () => {
 
   if (data) {
     localStorage.setItem("jwt", data.login.jwt);
+    localStorage.setItem("user", data.login.user.username);
     router.push("/");
     router.reload();
     console.log("data", data);

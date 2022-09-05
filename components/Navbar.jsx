@@ -99,7 +99,7 @@ const Navbar = () => {
               <Menu as="div" className="relative inline-block text-left">
                 <div className="mr-20">
                   <Menu.Button className="inline-flex w-full justify-center rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 shadow-sm focus:outline-none  ">
-                    Account
+                    Hi, {localStorage.getItem("user")}
                     <ChevronDownIcon
                       className="-mr-1 ml-2 h-5 w-5"
                       aria-hidden="true"
