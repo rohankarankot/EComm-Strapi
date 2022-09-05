@@ -45,7 +45,6 @@ const HomeContent = () => {
             ) : (
               <>
                 {allProductData?.map((product, index) => {
-                  console.log("allProductData", allProductData);
                   return (
                     <div key={index}>
                       <ProductCard data={product} />

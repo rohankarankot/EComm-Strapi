@@ -1,9 +1,5 @@
 import Link from "next/Link";
-import {
-  AiFillCloseCircle,
-  AiFillMinusCircle,
-  AiFillPlusCircle,
-} from "react-icons/ai";
+import { useCart } from "react-use-cart";
 import { BsFillCartFill } from "react-icons/bs";
 import { useRouter } from "next/router";
 import { Fragment, useEffect, useRef, useState } from "react";
@@ -12,18 +8,10 @@ import { ChevronDownIcon } from "@heroicons/react/20/solid";
 
 const Navbar = () => {
   const router = useRouter();
-  const Sideref = useRef();
+  const { items } = useCart();
   const [loggedIn, setLoggedIn] = useState(false);
   const [openMenu, setOpenMenu] = useState(false);
-  const toggleCart = () => {
-    if (Sideref.current.classList.contains("translate-x-full")) {
-      Sideref.current.classList.remove("translate-x-full");
-      Sideref.current.classList.add("translate-x-0");
-    } else if (!Sideref.current.classList.contains("translate-x-full")) {
-      Sideref.current.classList.remove("translate-x-0");
-      Sideref.current.classList.add("translate-x-full");
-    }
-  };
+
   useEffect(() => {
     let token = localStorage.getItem("jwt");
     if (token) {
@@ -87,15 +75,12 @@ const Navbar = () => {
                   ></form>
                 </div>
               </div>
-              <button
-                className="border-0 py-1 px-3 rounded mt-4 md:mt-0 text-black text-2xl absolute top-4 right-4 "
-                // onClick={toggleCart}
-              >
+              <div className="border-0 py-1 px-3 rounded mt-4 md:mt-0 text-black text-2xl absolute top-4 right-4 ">
                 <div className="inline-flex absolute -top-2 -right-1 justify-center items-center w-6 h-6 text-xs font-bold text-white bg-blue-500 rounded-full ">
                   23
                 </div>
                 <BsFillCartFill />
-              </button>
+              </div>
               <Menu as="div" className="relative inline-block text-left">
                 <div className="mr-20">
                   <Menu.Button className="inline-flex w-full justify-center rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 shadow-sm focus:outline-none  ">
@@ -166,15 +151,19 @@ const Navbar = () => {
                   </Menu.Items>
                 </Transition>
               </Menu>
-              <button
+              <div
                 className="border-0 py-1 px-3 rounded mt-4 md:mt-0 text-black text-2xl absolute top-4 right-4 "
                 // onClick={toggleCart}
               >
                 <div className="inline-flex absolute -top-2 -right-1 justify-center items-center w-6 h-6 text-xs font-bold text-white bg-blue-500 rounded-full ">
-                  23
+                  {items.length}
                 </div>
-                <BsFillCartFill />
-              </button>
+                <Link href={"/cart"}>
+                  <a>
+                    <BsFillCartFill className="pointer" />
+                  </a>
+                </Link>
+              </div>
             </>
           ) : (
             <div>
@@ -202,57 +191,6 @@ const Navbar = () => {
         </div>
       </header>
       <div className="xl:h-16 h-36"></div>
-      {/* <div
-        className="sidebar absolute top-0 right-0 z-50 bg-blue-100 p-10 transform transition-transform   translate-x-full w-72 h-full"
-        ref={Sideref}
-      >
-        <h2 className="mb-4 border-b-2 border-black text-center">
-          <b className="text-xl">Shopping cart</b>
-        </h2>
-        <span
-          className="absolute top-5 right-5 cursor-pointer"
-          onClick={toggleCart}
-        >
-          <AiFillCloseCircle size={"1.5em"} className="text-blue-900" />
-        </span>
-        <ol className="list-decimal">
-          <li>
-            <div className="flex justify-between items-center pb-4">
-              <div className="w-2/3 font-semibold">T Shirt - round neck</div>
-              <div className="w-1/3 flex justify-center items-center text-blue-900">
-                <AiFillPlusCircle />
-                <span className="mx-3">1</span>
-                <AiFillMinusCircle />
-              </div>
-            </div>
-          </li>
-
-          <li>
-            <div className="flex justify-between items-center pb-4">
-              <div className="w-2/3 font-semibold">T Shirt - round neck</div>
-              <div className="w-1/3 flex justify-center items-center text-blue-900">
-                <AiFillPlusCircle />
-                <span className="mx-3">1</span>
-                <AiFillMinusCircle />
-              </div>
-            </div>
-          </li>
-
-          <li>
-            <div className="flex justify-between items-center pb-4">
-              <div className="w-2/3 font-semibold">T Shirt - round neck</div>
-              <div className="w-1/3 flex justify-center items-center text-blue-900">
-                <AiFillPlusCircle />
-                <span className="mx-3">1</span>
-                <AiFillMinusCircle />
-              </div>
-            </div>
-          </li>
-        </ol>
-        <button className="flex mx-auto text-white bg-indigo-500 border-0 py-1 my-5  px-8 focus:outline-none hover:bg-indigo-600 rounded text-lg">
-          Checkout
-        </button>
-      </div> */}
     </>
   );
 };

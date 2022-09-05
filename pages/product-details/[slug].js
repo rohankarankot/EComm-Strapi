@@ -5,7 +5,9 @@ import { GET_PRODUCT_DETAILS } from "../../gql/queries";
 import { useQuery } from "@apollo/client";
 import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a loader
 import { Carousel } from "react-responsive-carousel";
+import { useCart } from "react-use-cart";
 const Slug = () => {
+  const { addItem } = useCart();
   const [pin, setPin] = useState();
   const [service, setService] = useState("");
   const [productDetails, setProductDetails] = useState();
@@ -17,6 +19,7 @@ const Slug = () => {
   useEffect(() => {
     if (slug) {
       if (data) {
+        console.log("data", data);
         setProductDetails(data);
       }
       console.log("productDetails", productDetails?.product?.data?.attributes);
@@ -31,6 +34,15 @@ const Slug = () => {
     } else {
       setService("Sorry, can't Deliver");
     }
+  };
+  const addToCart = () => {
+    addItem({
+      id: slug,
+      name: data.product.data.attributes.name,
+      price: data.product.data.attributes.price,
+      image: data.product.data.attributes.images.data[0].attributes.url,
+    });
+    alert("added to cart");
   };
   return (
     <>
@@ -181,7 +193,10 @@ const Slug = () => {
                 </span>
                 {productDetails?.product?.data?.attributes.AvailableQty > 0 ? (
                   <div className="flex flex-wrap">
-                    <button className="flex ml-4 text-white bg-indigo-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded">
+                    <button
+                      className="flex ml-4 text-white bg-indigo-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded"
+                      onClick={addToCart}
+                    >
                       Add to cart
                     </button>
                     <button className="flex ml-4 text-white bg-indigo-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded">
