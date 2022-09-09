@@ -1,18 +1,15 @@
 import Footer from "../components/Footer";
 import Navbar from "../components/Navbar";
 import "../styles/globals.css";
-import { ApolloClient, InMemoryCache, ApolloProvider } from "@apollo/client";
-import { CartProvider } from "react-use-cart";
 
-const client = new ApolloClient({
-  uri: "http://localhost:1337/graphql",
-  cache: new InMemoryCache(),
-});
+import { CartProvider } from "react-use-cart";
+import { ApolloProvider } from "@apollo/client";
+import { Gqlclient } from "../apollo-client";
 
 function MyApp({ Component, pageProps }) {
   return (
     <>
-      <ApolloProvider client={client}>
+      <ApolloProvider client={Gqlclient}>
         <CartProvider>
           <Navbar />
           <Component {...pageProps} />
