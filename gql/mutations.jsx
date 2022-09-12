@@ -22,3 +22,19 @@ export const SIGNUP = gql`
     }
   }
 `;
+
+export const CHANGE_PASSWORD = gql`
+  mutation ChangePassword(
+    $currentPassword: String!
+    $password: String!
+    $passwordConfirmation: String!
+  ) {
+    changePassword(
+      currentPassword: $currentPassword
+      password: $password
+      passwordConfirmation: $passwordConfirmation
+    ) {
+      jwt
+    }
+  }
+`;

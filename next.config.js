@@ -8,6 +8,7 @@ const nextConfig = {
       "source.unsplash.com",
       "thumbs.dreamstime.com",
       "localhost",
+      "www.kindpng.com",
     ],
   },
 };
