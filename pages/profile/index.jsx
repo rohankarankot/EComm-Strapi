@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import { CHANGE_PASSWORD } from "../../gql/mutations";
 import { GET_ALL_PRODUCTS } from "../../gql/queries";
 import { Gqlclient } from "../../apollo-client";
+import Alert from "../../components/Alert";
 
 const Index = () => {
   const [showPasswordInput, setShowPasswordInput] = useState(false);
@@ -33,10 +34,9 @@ const Index = () => {
         const jwt = res.data.changePassword.jwt;
         localStorage.setItem("jwt", jwt);
         console.log(res);
-       
       })
       .catch((err) => console.log("err", err))
-      .finally(()=> setLoading(false));
+      .finally(() => setLoading(false));
   };
 
   const { loading, error, data } = useMutation(CHANGE_PASSWORD);
@@ -51,6 +51,7 @@ const Index = () => {
 
   return (
     <div className="flex justify-center flex-col items-center py-6 w-full">
+      <Alert message={"Password Changed Successfully"}/>
       <div className="shadow-md border-red-100 grid place-items-center w-full md:w-2/4 hover:drop-shadow-xl">
         <Image
           className="cursor-pointer"

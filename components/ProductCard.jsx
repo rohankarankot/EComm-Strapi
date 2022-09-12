@@ -1,10 +1,27 @@
 import Image from "next/image";
 import Link from "next/Link";
 import React from "react";
+import TostAlert from "./TostAlert";
+import { tostSuccess } from "./TostAlert";
+import { useCart } from "react-use-cart";
+import { Router, useRouter } from "next/router";
 
 const ProductCard = ({ data }) => {
+  const router = useRouter();
+  console.log("data", data);
+  const { addItem } = useCart();
+  const callToast = () => {
+    addItem({
+      id: data.id,
+      name: data.attributes.name,
+      price: data.attributes.price,
+      image: data.attributes.images.data[0].attributes.url,
+    });
+    tostSuccess("Item added to cart");
+  };
   return (
     <div>
+      <TostAlert />
       <div className="m-2 p-4 w-full hover:shadow-lg ">
         <Link href={`/product-details/${data?.id}`}>
           <a className="block relative rounded overflow-hidden">
@@ -35,13 +52,27 @@ const ProductCard = ({ data }) => {
             </b>
           </div>
           <div className="flex-col justify-center content-center text-center">
-            <button className="p-1  bg-green-500 text-white">
-              Add to cart
-            </button>
-            <br />
-            <button className=" p-1 cursor-pointer mt-1 bg-yellow-400 text-white">
-              Buy now!!!
-            </button>
+            {data?.attributes?.AvailableQty === 0 ? (
+              <p className=" text-yellow-200 bg-yellow-400 p-1 cursor-not-allowed mt-5">
+                No Stock
+              </p>
+            ) : (
+              <>
+                <button
+                  className="p-1  bg-green-500 text-white"
+                  onClick={callToast}
+                >
+                  Add to cart
+                </button>
+                <br />
+                <button
+                  className=" p-1 cursor-pointer mt-1 bg-yellow-400 text-white"
+                  onClick={() => router.push(`/product-details/${data?.id}`)}
+                >
+                  Buy now!!!
+                </button>
+              </>
+            )}
           </div>
         </div>
       </div>

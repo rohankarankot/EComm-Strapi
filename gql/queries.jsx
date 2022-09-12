@@ -10,6 +10,7 @@ export const GET_ALL_PRODUCTS = gql`
           name
           description
           price
+          AvailableQty
           images {
             data {
               attributes {
